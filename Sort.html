@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bubble Sort</title>
+  <script type="text/javascript" src="jquery.js"></script>
+  <link rel="shortcut icon" type="image/png" href="Hacktron.png"/>
+  <script>
+  $( document ).ready(function() {
+      $("div").remove();
+    var Numbers = [];
+    var length = 200;
+    for(i=0; i<length; i++){
+      Numbers.push(Math.floor((Math.random() * 10000) + 1));
+    }
+    for(i=0; i<Numbers.length; i++){
+      $('#Sort').append("<div id='Bar' class='"+i+"' style='float:left; background-color:red; height:"+Numbers[i]/15+"px; margin-top:"+(666.66-(Numbers[i]/15))+"px; width:"+0.26*(270/Numbers.length)+"%; margin-right:"+0.106*(270/Numbers.length)+"%;'></div>");
+    }
+    var Num1 = 0;
+    var Num2 = 0;
+    var tmp = 0;
+    function Bubble(){
+      loop1:
+    for(var i=Num1; i<Numbers.length;i++){
+      loop2:
+      for(var j=Num2; j<(Numbers.length-i-1); j++){
+        if(Numbers[j]>Numbers[j+1]){
+          tmp = Numbers[j];
+          Numbers[j] = Numbers[j+1];
+          Numbers[j+1] = tmp;
+          Num1 = i;
+          Num2 = j;
+          break loop1;
+          break loop2;
+        }
+        Num2 = 0;
+      }
+    }
+    var TmpNum = Num2;
+    $("."+TmpNum).css("height",Numbers[TmpNum]/15+"px");
+    $("."+TmpNum).css("margin-top",(666.66-(Numbers[j]/15))+"px");
+    $("."+(TmpNum+1)).css("height",Numbers[TmpNum+1]/15+"px");
+    $("."+(TmpNum+1)).css("margin-top",(666.66-(Numbers[TmpNum+1]/15))+"px");
+  }
+  var Interval = setInterval(function(){ Bubble() }, 500);
+  $("#Slider").on("input",function(){
+    if(!$("#Stop").hasClass("Stopped")){
+    clearInterval(Interval);
+    var x = document.getElementById("Slider").value*1000;
+    Interval = setInterval(Bubble,x);
+}
+  });
+  $("#Stop").click(function(){
+    if(!$("#Stop").hasClass("Stopped")){
+    clearInterval(Interval);
+    $("#Stop").addClass("Stopped");
+    $("#pause").attr("src","play.jpg");
+  }
+  else{
+    var x = document.getElementById("Slider").value*1000;
+Interval = setInterval(Bubble,x);
+$("#Stop").removeClass("Stopped");
+$("#pause").attr("src","pause.png");
+  }
+  });
+  $("#reload").click(function(){
+    location.reload();
+  });
+});
+  </script>
+</head>
+<body style="font-size:18px;font-family:Calibri;">
+  <h1 style="text-align:center;text-decoration:underline;">Bubble Sort</h1>
+  <span id="Sort" style="width:100%;"></span>
+  <span><button style="display:inline-block; padding:6px 12px;float:left;color:red; cursor:pointer;margin-right:20px; margin-top:15px;background-color:white;border:1px solid black;color:black;color:red;"id="Stop"><img id="pause" style="height:30px;" src="pause.png" /></button>
+    <p style="float:left;display:inline-block;margin-right:15px;position:relative;top:10px;">Schneller</p>
+    <input id="Slider" type="range" name="Slider" style="display:inline;width:300px; margin-top:20px; position:relative;bottom:5px;" step="0.001" value="0.5" min="0.001" max="1">
+    <p style="display:inline-block;margin-left:15px;margin-bottom:20px;position:relative;bottom:12px;">Langsamer</p>
+  <button style="display:inline-block; color:red; cursor:pointer;margin-left:20px; margin-top:15px;background-color:white;border:1px solid black;color:black;"id="reload"><img style="height:40px;" src="reload.jpg" /></button></span>
+    <h4 style="float:right;margin-right:10px;">&copy; 2016 by Mathis Arend</h4>
+</body>
+</html>
